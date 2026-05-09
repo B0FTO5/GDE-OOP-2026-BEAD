@@ -1,6 +1,5 @@
-from Beadando.Rental import Rental
-from Beadando.Vehicle import Vehicle
-
+from Rental import Rental
+from datetime import datetime
 
 class CarRental:
     def __init__(self, name):
@@ -15,7 +14,7 @@ class CarRental:
     @property
     def vehicles(self):
         for vehicle in self._vehicles:
-            print(f"Típus: {vehicle.model}, Rendszám: {vehicle.plate_number}, Ár: {vehicle.renting_fee}")
+            print(f"{vehicle} - Ár: {vehicle.renting_fee} HUF")
 
     @property
     def rentals(self):
@@ -58,8 +57,12 @@ class CarRental:
         self._rentals.append(rental)
 
     def remove_booking(self, plate_number, rental_date):
+        try:
+            datetime.strptime(rental_date, '%Y-%m-%d').date()
+        except ValueError:
+            raise ValueError('Nem megfelelő dátum formátum.')
         rental = self._find_rental(plate_number, rental_date)
         if rental is None:
-            raise ValueError("Rental not found")
+            raise ValueError("A megadott foglalás nem létezik.")
         self._rentals.remove(rental)
         return True

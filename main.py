@@ -2,7 +2,6 @@ from Car import Car
 from Truck import Truck
 from Rental import Rental
 from CarRental import CarRental
-from datetime import datetime
 
 class CarRentalSystem():
     def __init__(self):
@@ -17,10 +16,25 @@ class CarRentalSystem():
         self._car_rental.vehicles = car2
         self._car_rental.vehicles = truck1
 
-        self._car_rental.rentals = Rental(car1, datetime.strptime('2026-06-01', '%Y-%m-%d').date())
-        self._car_rental.rentals = Rental(car1, datetime.strptime('2026-06-02', '%Y-%m-%d').date())
-        self._car_rental.rentals = Rental(car2, datetime.strptime('2026-06-10', '%Y-%m-%d').date())
-        self._car_rental.rentals = Rental(truck1, datetime.strptime('2026-06-01', '%Y-%m-%d').date())
+        # Kivetelkezelés teszteléséhez adunk meg rossz bemeneteket is
+        rentals_data = [
+            (car1, '2025-06-01'),
+            (truck1, '20250601'),
+            (car1, '2026-06-01'),
+            (car1, '2026-06-02'),
+            (car2, '2026-06-10'),
+            (truck1, '2026-06-01'),
+        ]
+
+        # Elkapjuk a kivételeket, végül csak 4 bérlés fog létrejönni a feladatkiírásnak megfelelően
+        for car, rental_date in rentals_data:
+            try:
+                self._car_rental.rentals = Rental(car, rental_date)
+            except Exception as e:
+                print(f"Hiba ({car}, {rental_date}): {e}")
+
+        print(f"A {self._car_rental.name} autókölcsönző rendszer inicializálása megtörtént")
+        print("*********************************************************************************************************************************\n")
 
     def user_interact(self):
         while True:
@@ -39,21 +53,19 @@ class CarRentalSystem():
             elif menu == '3':
                 plate_number = input('Add meg a rendszámot: ')
                 rental_date_string = input('Add meg bérlés dátumát (ÉÉÉÉ-HH-NN): ')
-                rental_date = datetime.strptime(rental_date_string, '%Y-%m-%d').date()
                 try:
-                    self._car_rental.place_booking(plate_number, rental_date)
-                    print(f"A {plate_number} rendszámú autó sikeresen lefoglalva a {rental_date} dátumra.")
+                    self._car_rental.place_booking(plate_number, rental_date_string)
+                    print(f"A {plate_number} rendszámú autó sikeresen lefoglalva a {rental_date_string} dátumra.")
                 except Exception as e:
-                    print(e)
+                    print(f"Hiba (Megadott rendszám: {plate_number}, Megadott dátum: {rental_date_string}): {e}")
             elif menu == '4':
                 plate_number = input('Add meg a rendszámot: ')
                 rental_date_string = input('Add meg bérlés dátumát (ÉÉÉÉ-HH-NN): ')
-                rental_date = datetime.strptime(rental_date_string, '%Y-%m-%d').date()
                 try:
-                    self._car_rental.remove_booking(plate_number, rental_date)
-                    print(f"A foglalás sikersen törölve.")
+                    self._car_rental.remove_booking(plate_number, rental_date_string)
+                    print(f"A bérlés sikersen törölve.")
                 except Exception as e:
-                    print(e)
+                    print(f"Hiba (Megadott rendszám: {plate_number}, Megadott dátum: {rental_date_string}): {e}")
             elif menu == '5':
                 break
             else:

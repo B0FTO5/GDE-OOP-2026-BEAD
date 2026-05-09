@@ -15,7 +15,7 @@ class Car(Vehicle):
         return self._fuel_type
 
     def __str__(self):
-        return f"Típus: {self.model}, Rendszám: {self.plate_number}, Ülések száma: {self.seat_count},Üzemanyag típusa: {self.fuel_type}"
+        return f"Személyautó - Típus: {self.model}, Rendszám: {self.plate_number}, Ülések száma: {self.seat_count},Üzemanyag típusa: {self.fuel_type}"
 
     def _validate_seat_count(self, seat_count):
         if seat_count <= 1:

@@ -18,7 +18,7 @@ class Rental():
         try:
             parsed_date = datetime.strptime(rental_date, '%Y-%m-%d').date()
         except ValueError:
-            raise ValueError('Nem megfelelő dátumot formátum.')
+            raise ValueError('Nem megfelelő a dátum formátuma.')
 
         if parsed_date < date.today():
             raise ValueError('A bérlés dátuma nem lehet a múltban')

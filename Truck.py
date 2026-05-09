@@ -15,4 +15,4 @@ class Truck(Vehicle):
         return self._cargo_volume
 
     def __str__(self):
-        return f"Típus: {self.model}, Rendszám: {self.plate_number}, Teherbírás: {self.load_capacity}, Raktér méret: {self.cargo_volume}"
+        return f"Teherautó - Típus: {self.model}, Rendszám: {self.plate_number}, Teherbírás: {self.load_capacity} KG, Raktér méret: {self.cargo_volume} m³"
