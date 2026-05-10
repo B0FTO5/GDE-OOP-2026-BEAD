@@ -20,10 +20,10 @@ class CarRentalSystem():
         rentals_data = [
             (car1, '2025-06-01'),
             (truck1, '20250601'),
-            (car1, '2026-06-01'),
-            (car1, '2026-06-02'),
-            (car2, '2026-06-10'),
-            (truck1, '2026-06-01'),
+            (car1, '2026-07-01'),
+            (car1, '2026-07-02'),
+            (car2, '2026-07-10'),
+            (truck1, '2026-07-01'),
         ]
 
         # Elkapjuk a kivételeket, végül csak 4 bérlés fog létrejönni a feladatkiírásnak megfelelően
